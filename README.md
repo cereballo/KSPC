@@ -1,3 +1,5 @@
+## Instructions to get software up and running
+
 1. Go [here](https://krpc.github.io/krpc/getting-started.html) to get started with KRPC and install the mod.
 
 2. After opening controller.ino in the Arduino IDE, go to *Tools* -> *Manage Libraries* -> Search for "krpc" and install.
