@@ -1,6 +1,6 @@
 ## Instructions to get software up and running
 
-1. Go [here](https://krpc.github.io/krpc/getting-started.html) to get started with KRPC and install the mod.
+1. Go [here](https://krpc.github.io/krpc/getting-started.html) to get started with KRPC and install the mod. The easiest way is to install CPAK from [here](https://forum.kerbalspaceprogram.com/index.php?/topic/90246-the-comprehensive-kerbal-archive-network-ckan-package-manager-v1180-19-june-2016/) and search for KRPC. CPAK will handle the install.
 
 2. After opening controller.ino in the Arduino IDE, go to *Tools* -> *Manage Libraries* -> Search for "krpc" and install.
 
@@ -14,4 +14,13 @@
 
 7. Click *Show Advanced Settings* and enable *Auto-accept new clients.*
 
-8. Click *Start* and then you should be good to go.
+8. Click *Start*. A successful connection will be indicated by a green light on the Server panel and some activity on the amber status lights on your Arduino.
+
+### Notes
+
+- You don't have to restart the game every time you make an update to the Arduino. Simply stop the server, push the update, open the Serial Monitor, and start the server.
+
+### Todo
+
+- [ ] Fix the stupid Serial Monitor hack. It's probably some logging in the mod that's messing it up.
+- [ ] Get the screen working
