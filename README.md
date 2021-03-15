@@ -1,6 +1,15 @@
-# KSPC
-Arduino sketches for Arduino Mega 2560 to run KSP controller.
+1. Go [here](https://krpc.github.io/krpc/getting-started.html) to get started with KRPC and install the mod.
 
-Source code found on: https://forum.kerbalspaceprogram.com/index.php?/topic/60281-hardware-plugin-arduino-based-physical-display-serial-port-io-tutorial-27-08-19/
+2. After opening controller.ino in the Arduino IDE, go to *Tools* -> *Manage Libraries* -> Search for "krpc" and install.
 
-Source code downloaded from: https://sites.google.com/site/zitronfiles/KSPIODemo17.zip
+3. After you upload the file to your Arduino, go to *Tools* -> *Serial Monitor* and wait until it prints out some junk and "Arduino Repeater." **Close the Serial Monitor**. **Note:** I have no idea why I need to do this, but I know the Arduino will refuse to talk to the server in Kerbal. Feel free to try this out for yourself and see if you can replicate the bug. Nothing will crash, it'll just not connect.
+
+4. Go to Kerbal (it can be already be open or you can open it now, it doesn't matter) load up an aircraft and load onto the ramp or launchpad. If you don't already have the KRPC window open, you can click on the little three computer icon on the right to open it.
+
+5. Click *Edit*, change the protocol to *Protobuf over SerialIO*, and select the port that your Arduino is connected to. Everything after that should remain unchanged.
+
+6. Click *Save*.
+
+7. Click *Show Advanced Settings* and enable *Auto-accept new clients.*
+
+8. Click *Start* and then you should be good to go.
