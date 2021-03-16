@@ -26,8 +26,20 @@ const int activateNextStageInPin = 30;
 bool stagingActive = false;
 
 float throttleVal;
+float pitchVal;
+float yawVal;
+float rollVal;
+float upVal;
+float rightVal;
+float forwardVal;
 const float maxAnalogVal = 1023;
 const int throttleInputPin = A0;
+const int pitchInputPin = A1;
+const int yawInputPin = A2;
+const int rollInputPin = A3;
+const int upInputPin = A4;
+const int rightInputPin = A5;
+const int forwardInputPin = A6;
 
 krpc_SpaceCenter_Flight_t flight;
 krpc_SpaceCenter_Control_t control;
@@ -123,4 +135,28 @@ void loop() {
 //   Read throttle input
   throttleVal = (float) 1 - (maxAnalogVal - (float) analogRead(throttleInputPin)) / maxAnalogVal;
   krpc_SpaceCenter_Control_set_Throttle(conn, control, throttleVal);
+
+//   Read pitch input
+  pitchVal = (((float) 1 - (maxAnalogVal - (float) analogRead(pitchInputPin)) / maxAnalogVal) * (float) 2) - (float) 1;
+  krpc_SpaceCenter_Control_set_Pitch(conn, control, pitchVal);
+
+//   Read yaw input
+  yawVal = (((float) 1 - (maxAnalogVal - (float) analogRead(yawInputPin)) / maxAnalogVal) * (float) 2) - (float) 1;
+  krpc_SpaceCenter_Control_set_Yaw(conn, control, yawVal);
+
+//   Read roll input
+  rollVal = (((float) 1 - (maxAnalogVal - (float) analogRead(rollInputPin)) / maxAnalogVal) * (float) 2) - (float) 1;
+  krpc_SpaceCenter_Control_set_Roll(conn, control, rollVal);
+
+//   Read up input
+  upVal = (((float) 1 - (maxAnalogVal - (float) analogRead(upInputPin)) / maxAnalogVal) * (float) 2) - (float) 1;
+  krpc_SpaceCenter_Control_set_Up(conn, control, upVal);
+
+//   Read right input
+  rightVal = (((float) 1 - (maxAnalogVal - (float) analogRead(rightInputPin)) / maxAnalogVal) * (float) 2) - (float) 1;
+  krpc_SpaceCenter_Control_set_Right(conn, control, rightVal);
+
+//   Read forward input
+  forwardVal = (((float) 1 - (maxAnalogVal - (float) analogRead(forwardInputPin)) / maxAnalogVal) * (float) 2) - (float) 1;
+  krpc_SpaceCenter_Control_set_Forward(conn, control, forwardVal);
 }
