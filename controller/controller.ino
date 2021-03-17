@@ -17,6 +17,10 @@ const int brakesOutPin = 27;
 
 const int abortInPin = 28;
 const int abortOutPin = 29;
+
+const int SASInPin = 32;
+const int SASOutPin = 33;
+
 bool abortActive = false;
 int abortLightState = LOW;
 unsigned long previousAbortLightMillis = 0;
@@ -57,6 +61,8 @@ void setup() {
   pinMode(brakesOutPin, OUTPUT);
   pinMode(abortInPin, INPUT_PULLUP);
   pinMode(abortOutPin, OUTPUT);
+  pinMode(SASInPin, INPUT_PULLUP);
+  pinMode(SASOutPin, OUTPUT);
   pinMode(activateNextStageInPin, INPUT_PULLUP);
 
   conn = &Serial;
@@ -109,6 +115,15 @@ void loop() {
   if (digitalRead(abortInPin) == HIGH) {
 //    krpc_SpaceCenter_Control_set_Abort(conn, control, true);
     abortActive = true;
+  }
+  
+  //SAS on/off
+  if (digitalRead(SASInPin) == HIGH) {
+    krpc_SpaceCenter_Control_set_SAS(conn, control, true);
+    digitalWrite(SASOutPin, HIGH);
+  } else {
+    krpc_SpaceCenter_Control_set_SAS(conn, control, false);
+    digitalWrite(SASOutPin, LOW);
   }
 
   // Abort light control
