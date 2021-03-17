@@ -8,7 +8,8 @@
 #include <krpc/services/krpc.h>
 #include <krpc/services/space_center.h>
 
-HardwareSerial * conn;
+//HardwareSerial * conn;
+krpc_connection_t conn;
 
 #define RED_LED       13
 #define TFT_RESET     24
@@ -29,16 +30,16 @@ krpc_SpaceCenter_Flight_t flight;
 krpc_SpaceCenter_Control_t control;
 krpc_SpaceCenter_Vessel_t vessel;
 krpc_SpaceCenter_Resources_t resources;
-krpc_list_object_t resourceList;
+krpc_list_string_t resourceList;
 
 Adafruit_ILI9341 tft = Adafruit_ILI9341(tft8bitbus, TFT_D0, TFT_WR, TFT_DC, TFT_CS, TFT_RST, TFT_RD);
 Adafruit_FlashTransport_QSPI flashTransport(PIN_QSPI_SCK, PIN_QSPI_CS, PIN_QSPI_IO0, PIN_QSPI_IO1, PIN_QSPI_IO2, PIN_QSPI_IO3);
 Adafruit_SPIFlash flash(&flashTransport);
 
-Adafruit_GFX gfx = Adafruit_GFX();
+GFXcanvas16 gfx = GFXcanvas16(240, 340);
 
 void setup() {
-  Serial.begin(115200);
+  Serial.begin(9600);
 
   pinMode(RED_LED, OUTPUT);
   pinMode(TFT_BACKLIGHT, OUTPUT);
@@ -55,13 +56,13 @@ void setup() {
 
   tft.print("Connecting to KRPC server...");
 
-  conn = &Serial;
+//  conn = &Serial;
   krpc_open(&conn, NULL);
   krpc_connect(conn, "Arduino Repeater");
   krpc_SpaceCenter_ActiveVessel(conn, &vessel);
   krpc_SpaceCenter_Vessel_Control(conn, &control, vessel);
   krpc_SpaceCenter_Vessel_Flight(conn, &flight, vessel, KRPC_NULL);
-  krpc_SpaceCenter_Vessel_Resources(conn, &resources);
+  krpc_SpaceCenter_Vessel_Resources(conn, &resources, vessel);
 
   tft.setTextColor(ILI9341_GREEN);
   tft.println("success");
@@ -70,17 +71,19 @@ void setup() {
 void loop() {
   // Get current speed
   double speed;
-  krpc_SpaceCenter_Flight_Speed(conn, &speed);
+//  krpc_SpaceCenter_Flight_Speed(conn, &speed, flight);
 
   // Display current speed
   tft.setTextColor(ILI9341_WHITE);
+  tft.setCursor(0, 40);
   tft.print("Speed: ");
   tft.setTextColor(ILI9341_GREEN);
-  tft.println(speed + " m/s");
+//  tft.print(speed);
+  tft.println(" m/s");
 
   // Get all resource names
-  krpc_SpaceCenter_Resources_Names(conn, &resourceList);
-  Serial.println(resourceList);
+//  krpc_SpaceCenter_Resources_Names(conn, &resourceList, resources);
+//  Serial.println(*resourceList.items);
 
   // Get max fuel level
   // double maxFuelLevel;
